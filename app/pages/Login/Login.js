@@ -15,6 +15,8 @@ import Checkbox from 'expo-checkbox';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
+import IconImage from '../../../assets/icon.png'; // Importa a imagem local
+
 
 // Se estiver usando gradiente como padrão do app
 import { LinearGradient } from 'expo-linear-gradient';
@@ -234,11 +236,13 @@ const LoginScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.centerContent}
       >
-        <View style={styles.card}>
-          <Image
-            source={{ uri: 'https://dedstudio.com.br/dev/STV/admin/img/logo.png' }}
+                  <Image
+            // source={{ uri: 'https://dedstudio.com.br/dev/STV/admin/img/logo.png' }}
+            source={IconImage}
             style={styles.logo}
           />
+        <View style={styles.card}>
+
           <Text style={styles.subtitle}>SUA MAIOR SEGURANÇA.</Text>
 
           <TextInput
@@ -297,7 +301,7 @@ const LoginScreen = () => {
             onPress={() => navigation.navigate('Recupera')}
             activeOpacity={0.8}
           >
-          <Text style={styles.esqueci}>Trocar Senha</Text>
+            <Text style={styles.esqueci}>Trocar Senha</Text>
           </TouchableOpacity>
 
           <Version home />
@@ -337,8 +341,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 240,
+    height: 240,
     marginBottom: 15,
     resizeMode: 'contain',
   },

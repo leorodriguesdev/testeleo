@@ -19,14 +19,14 @@ import * as Sharing from 'expo-sharing';
 
 import api from '../services/api';
 
-const STORAGE_KEY = '@paychecks';      // Chave para lista de contracheques
-const STORAGE_YEAR_KEY = '@selectedYear'; // Chave para o ano selecionado
+const STORAGE_KEY = '@paychecks';          // Chave para lista de contracheques
+const STORAGE_YEAR_KEY = '@selectedYear';  // Chave para o ano selecionado
 
 const ContraCheque = () => {
-  const [paychecks, setPaychecks] = useState([]);          // Lista de contracheques
-  const [loading, setLoading] = useState(false);           // Estado de carregamento
-  const [selectedPaycheck, setSelectedPaycheck] = useState(null); // Contracheque selecionado p/ visualizar
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString()); // Ano atual como default
+  const [paychecks, setPaychecks] = useState([]);               // Lista de contracheques
+  const [loading, setLoading] = useState(false);                // Estado de carregamento
+  const [selectedPaycheck, setSelectedPaycheck] = useState(null); // Contracheque para visualizar
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString()); // Ano atual default
 
   // 1. Obter anos disponíveis (atual - 5 anos, por exemplo)
   const getAvailableYears = () => {
@@ -191,14 +191,16 @@ const ContraCheque = () => {
 
     let monthsToFetch = [];
 
-    // Se for o ano atual, buscamos até o mês atual
+    // Se for o ano atual, buscar só até o mês anterior (não inclui o mês corrente)
     if (parseInt(year, 10) === currentYear) {
-      for (let i = 1; i <= currentMonth; i++) {
+      const finalMonth = currentMonth - 1; // Até o mês anterior
+      // Se finalMonth < 1 (ex: estamos em janeiro), não busca nenhum mês
+      for (let i = 1; i <= finalMonth; i++) {
         const formattedMonth = i.toString().padStart(2, '0');
         monthsToFetch.push({ month: formattedMonth, year: year });
       }
     } else if (parseInt(year, 10) < currentYear) {
-      // Ano passado, buscar todos os 12 meses
+      // Ano anterior ou mais antigo: buscar todos os 12 meses
       for (let i = 1; i <= 12; i++) {
         const formattedMonth = i.toString().padStart(2, '0');
         monthsToFetch.push({ month: formattedMonth, year: year });
@@ -293,7 +295,6 @@ const ContraCheque = () => {
 
   return (
     <View style={styles.container}>
-
       {/* Picker de anos */}
       <View style={styles.pickerContainer}>
         <Text style={styles.pickerLabel}>Selecione o Ano:</Text>
@@ -419,7 +420,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 15,
     width: '100%',
-    // sombra
+    // Sombra
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -472,3 +473,4 @@ const styles = StyleSheet.create({
 });
 
 export default ContraCheque;
+

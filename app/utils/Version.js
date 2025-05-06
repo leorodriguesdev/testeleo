@@ -7,7 +7,7 @@ const Version = ({home}) => {
             <Text style={styles.text}>2025 • STV Segurança</Text>
             <View style={styles.textName}>
                 <Text style={styles.text}>Versão</Text>
-                <Text style={styles.text}>1.0.2</Text>
+                <Text style={styles.text}>1.0.6</Text>
             </View>
         </View>
     );

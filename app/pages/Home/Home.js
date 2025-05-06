@@ -16,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GRADIENT_COLORS } from '../../theme'; 
+import IconImage from '../../../assets/icon.png';
 
 import api from '../../services/api';
 
@@ -36,7 +37,9 @@ const HomeScreen = () => {
     const fetchName = async () => {
       try {
         const storedNome = await AsyncStorage.getItem('nome');
-        setNome(storedNome || 'Usuário desconhecido');
+        // pega apenas a primeira palavra do nome 
+        const nomeSplit = storedNome.split(' ');
+        setNome(nomeSplit[0] || 'Usuário desconhecido');
       } catch (error) {
         console.error('Erro ao buscar o nome:', error);
         setNome('Usuário desconhecido');
@@ -104,16 +107,26 @@ const HomeScreen = () => {
       <ScrollView contentContainerStyle={styles.container}>
         
         <View style={styles.header}>
-          <Image
+          {/* <Image
             source={{ uri: 'https://dedstudio.com.br/dev/STV/admin/img/logo.png' }}
             style={styles.logo}
-          />
+          /> */}
           <Text style={styles.welcomeText}>
-            Olá, {nome}! Seja bem-vindo ao novo aplicativo da STV!
+            Olá, {nome}!
           </Text>
+          <Text style={styles.welcomeText}>
+            Seja bem-vindo(a) ao novo aplicativo ELO
+          </Text>
+        </View>
+        <View style={styles.imageContainer}>
+        <Image
+            source={IconImage}
+            style={styles.logo}
+          />       
         </View>
 
         <View style={styles.sliderContainer}>
+
           {loadingBanners ? (
             <ActivityIndicator color="#006f45" size="large" />
           ) : (
@@ -264,12 +277,12 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#FFFFFF',
-    paddingTop: 40,
+    paddingTop: 20,
     marginHorizontal: 20,
     paddingVertical: 20,
     paddingHorizontal: 15,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    borderRadius: 10,
+    marginTop: 20,
     alignItems: 'center',
 
     // Sombras
@@ -280,10 +293,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   logo: {
-    width: 80,
-    height: 80,
-    marginBottom: 10,
+    width: 120,
+    height: 120,
     resizeMode: 'contain',
+  },
+  imageContainer: {
+    alignItems: 'center',
   },
   welcomeText: {
     fontSize: 16,
@@ -292,7 +307,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   sliderContainer: {
-    marginTop: 20,
     alignItems: 'center',
 
     shadowColor: '#000',

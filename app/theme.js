@@ -1,2 +1,2 @@
 // theme.js
-export const GRADIENT_COLORS = ['#005f36', '#167450'];
+export const GRADIENT_COLORS = ['#0C6F48', '#167450'];

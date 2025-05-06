@@ -109,11 +109,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingTop: 40, // Ajuste conforme necessário
+    paddingTop: 20, // Ajuste conforme necessário
     paddingBottom: 20,
     paddingHorizontal: 15,
-    borderBottomLeftRadius: 10, // Se quiser canto arredondado
-    borderBottomRightRadius: 10,
+    borderRadius: 10,
+    marginTop: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
